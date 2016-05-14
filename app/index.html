@@ -12,7 +12,8 @@
         <div class="sidebar-vertical">
             <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-            <textarea onkeyup="textEdited(this)" class="code-textarea code-container"></textarea>
+            <!--<textarea onkeyup="textEdited(this)" class="code-textarea code-container"></textarea>-->
+            <div onkeyup="textEdited(this)" contenteditable="true" class="code-textarea code-container"></div>
         </div>
         <div class="main-vertical">
             <div class="second-column">
