@@ -1,9 +1,13 @@
 'use strict'
 
 var converter = null;
+var renderer = null;
+var codeFormatter = null;
 try {
     window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js')
+    converter = require('./js/converter.js');
+    renderer = require('./js/renderer.js');
+    codeFormatter = require('js-beautify').html;
 } catch (error) {
 
 }
@@ -16,12 +20,6 @@ $(document).ready(function () {
         $('#p-raw-html').text(data);
     });
 });
-
-function textEdited(obj) {
-    var htmlCode = converter.convertToHtml($(obj).val());
-    $('#html-generated').text(htmlCode);
-    $('#html-rendered').html(htmlCode);
-}
 
 function resizeBarMouseDown(e, obj) {
     e.preventDefault();
@@ -89,4 +87,15 @@ function resizeBarMouseDown(e, obj) {
         $(document).unbind('mouseup');
     });
 
+}
+
+function textEdited(obj) {
+    renderer.render($(obj).val(), updateHTML);
+}
+
+function updateHTML(htmlCode) {
+    var cleanHtmlCode = codeFormatter(htmlCode);
+    
+    $('#html-generated').text(cleanHtmlCode);
+    $('#html-rendered').html(htmlCode);
 }
