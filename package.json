@@ -21,8 +21,8 @@
     "electron-prebuilt": "^1.0.2"
   },
   "dependencies": {
-    "electron": "^0.4.1",
     "jquery": "^2.2.3",
+    "js-beautify": "^1.6.2",
     "kramed": "^0.5.6"
   }
 }
