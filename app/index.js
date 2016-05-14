@@ -91,8 +91,7 @@ var fileChanged = false;
 
 //File open
 ipc.on('open-file', function(event, fileContent) {
-    // document.getElementById('open-file').innerHTML = `You selected: ${path}`
-    $('#kramdown-code').val(fileContent);
+    $('#kramdown-code')[0].innerText = fileContent;
     textEdited($('#kramdown-code'));
 })
 
@@ -161,22 +160,22 @@ function getCaretPosition(editableDiv) {
             caretPos = tempRange.text.length;
         }
     }
-    
+
     return caretPos;
 }
 
-function setCaretPosition(editableDiv, caretPos) {    
+function setCaretPosition(editableDiv, caretPos) {
     var range = document.createRange();
     var sel = window.getSelection();
-    
+
     range.setStart(editableDiv.firstChild, caretPos);
     range.collapse(true);
-    
+
     $('#html-rendered').html("zzzzzzzzzzzzzzzzz");
-    
-        
+
+
     sel.removeAllRanges();
     sel.addRange(range);
-    
+
     var car = getCaretPosition(editableDiv);
 }

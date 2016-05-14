@@ -12,7 +12,7 @@
     position: absolute;
     width: calc(100% - 8px);
     height: 100%;
-    padding: 5px;
+    padding: 5px !important;
     overflow: auto;
     resize: none;
     border: 0px;
@@ -42,4 +42,24 @@
     height: 100%;
     display: inline-block;
     position: relative;
+}
+
+
+/* font */
+
+
+/* inconsolata-regular - latin-ext_latin */
+
+@font-face {
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Inconsolata'), url('../fonts/inconsolata-v12-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/inconsolata-v12-latin-ext_latin-regular.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+.coding-style {
+    font-family: 'Inconsolata';
+    font-size: 15px;
 }
