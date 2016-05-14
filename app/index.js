@@ -127,8 +127,7 @@ function resizeBarMouseDown(e, obj) {
 }
 
 function textEdited(obj) {
-    var markDownString = $(obj).val();
-    renderer.render(markDownString, updateHTML);
+    renderer.render($(obj).val(), updateHTML);
 }
 
 function updateHTML(htmlCode) {
