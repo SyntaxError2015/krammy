@@ -2,12 +2,8 @@
 
 const converter = require('./converter.js');
 
-function resetTimer() {
-}
-
-function wait() {
-
-}
+var timer = null;
+var timeout = 1000;
 
 function render(markDownString, uiUpdateCallback) {
     var htmlCode = converter.convertToHtml(markDownString);
@@ -17,9 +13,18 @@ function render(markDownString, uiUpdateCallback) {
 
 module.exports = {
     render: function(markDownString, uiUpdateCallback) {
-        resetTimer();
-        wait();
-
-        render(markDownString, uiUpdateCallback)
+        if (timer != null) {
+            clearTimeout(timer);
+        }
+        
+        timer = setTimeout(render, timeout, markDownString, uiUpdateCallback);
+    },
+    
+    setTimeout: function(timeoutValue) {
+        timeout = timeoutValue;
+    },
+    
+    getTimeout: function() {
+        return timeout;
     }
 }
