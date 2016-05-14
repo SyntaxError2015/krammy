@@ -5,26 +5,9 @@
 </head>
 
 <body>
-    <div>
-        <p id="p-html"> HTML HERE </p>
-        <p id="p-raw-html"> RAW HTML HERE</p>
-        <input type="button" id="but" value="Click ME!!!"></input>
-    </div>
-    <br/>
-    <br/>
 
-    <div style="height:100%;width:60%;resize: horizontal;overflow: auto;display:inline-block;position:relative;">
-        This is code
-    </div>
-    <div style="height:100%;display:inline-block;width:auto;position:relative;">
-        <div style="display:inline-block;position:absolute;height:50%;width:100%;">
-            html code
-        </div>
-        <div style="display:inline-block;position:absolute;height:50%;width:100%">
-            html style
-        </div>
-    </div>
 
+<!--
     <div id="sidebar">
         <span id="position"></span>
         <div id="dragbar"></div>
@@ -32,12 +15,38 @@
     </div>
     <div id="main">
         main
+    </div>-->
+
+    <div style="display:inline-block;position:absolute;width:100%;height:100%;">
+        <div id="sidebar2" style="position:relative;">
+            <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
+
+            <div contenteditable="true" onkeyup="textEdited(this)" style="position:absolute;width:calc(100% - 18px);height:calc(100% - 10px);padding:5px;overflow:scroll;white-space:pre-line;">
+                
+            </div>
+
+        </div>
+        <div id="main2">
+            <div style="width:100%;height:100%;display:inline-block;position:relative;">
+                <div class="sidebar-horizontal" style="position:relative;">
+                    <div class="dragbar-horizontal" onmousedown="resizeBarMouseDown(event,this)"></div>
+                    
+                    <div id="html-generated" style="position:absolute;width:calc(100% - 10px);height:calc(100% - 18px);padding:5px;overflow:scroll;">
+                         </div>
+                         
+                </div>
+                <div class="main-horizontal">
+                    main
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        window.$ = window.jQuery = require('jquery');
-    </script>
+
+
+    <script src="jquery-2.2.3.min.js"></script>
     <script src="index.js"></script>
+
 </body>
 
 </html>
