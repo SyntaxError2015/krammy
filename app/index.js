@@ -1,9 +1,11 @@
 'use strict'
 
 var converter = null;
+var renderer = null;
 try {
     window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js')
+    converter = require('./js/converter.js');
+    renderer = require('./js/renderer.js');
 } catch (error) {
 
 }
@@ -52,12 +54,6 @@ $(document).ready(function() {
         }
     });
 });
-
-function textEdited(obj) {
-    var htmlCode = converter.convertToHtml($(obj).val());
-    $('#html-generated').text(htmlCode);
-    $('#html-rendered').html(htmlCode);
-}
 
 function resizeBarMouseDown(e, obj) {
     e.preventDefault();
@@ -126,4 +122,14 @@ function resizeBarMouseDown(e, obj) {
         $(document).unbind('mouseup');
     });
 
+}
+
+function textEdited(obj) {
+    var markDownString = $(obj).val();
+    renderer.render(markDownString, updateHTML);
+}
+
+function updateHTML(htmlCode) {
+    $('#html-generated').text(htmlCode);
+    $('#html-rendered').html(htmlCode);
 }
