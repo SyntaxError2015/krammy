@@ -51,9 +51,6 @@ $(document).ready(function() {
             dragging = false;
         }
     });
-
-
-
 });
 
 function textEdited(obj) {
