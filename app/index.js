@@ -17,10 +17,11 @@ try {
 //File status
 var fileChanged = false;
 
-var htmlContainer, kramdownContainer;
+var htmlContainer, kramdownContainer, renderedHtmlContainer;
 
 $(document).ready(function() {
     htmlContainer = $('#html-generated');
+    renderedHtmlContainer = $('#html-rendered')
     kramdownContainer = $('#kramdown-code');
 
     // Initialize highlighting theme
@@ -127,8 +128,8 @@ function textEdited(obj) {
 function updateHTML(htmlCode) {
     var cleanHtmlCode = codeFormatter(htmlCode);
 
-    $('#html-generated').text(cleanHtmlCode);
-    $('#html-rendered').html(htmlCode);
+    htmlContainer.text(cleanHtmlCode);
+    renderedHtmlContainer.html(htmlCode);
 
     hljs.highlightBlock(htmlContainer[0]);
 }
