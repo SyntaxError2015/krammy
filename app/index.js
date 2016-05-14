@@ -3,15 +3,21 @@
 var converter = null;
 var renderer = null;
 var codeFormatter = null;
+var hljs = null;
 try {
     window.$ = window.jQuery = require('jquery');
     converter = require('./js/converter.js')
     converter = require('./js/converter.js');
     renderer = require('./js/renderer.js');
     codeFormatter = require('js-beautify').html;
+    hljs = require('highlight.js')
 } catch (error) {
 
 }
+
+$(document).ready(function() {
+    highlightCode();
+});
 
 function resizeBarMouseDown(e, obj) {
     e.preventDefault();
@@ -90,4 +96,12 @@ function updateHTML(htmlCode) {
 
     $('#html-generated').text(cleanHtmlCode);
     $('#html-rendered').html(htmlCode);
+    
+    highlightCode();
+}
+
+function highlightCode() {
+    $('.code-container').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
 }
