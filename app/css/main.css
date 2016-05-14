@@ -1,0 +1,45 @@
+.big-container {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*Styling for the 3 containers*/
+
+.code-textarea {
+    position: absolute;
+    width: calc(100% - 8px);
+    height: 100%;
+    padding: 5px;
+    overflow: auto;
+    resize: none;
+    border: 0px;
+    white-space: nowrap;
+    outline: none;
+}
+
+#html-generated {
+    position: absolute;
+    width: calc(100% - 10px);
+    height: calc(100% - 18px);
+    padding: 5px;
+    overflow: auto;
+    white-space: pre;
+}
+
+#html-rendered {
+    position: absolute;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    padding: 5px;
+    overflow: auto;
+}
+
+.second-column {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+}

@@ -1,84 +1,73 @@
-body,html{width:100%;height:100%;padding:0;margin:0;}
+body,
+html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
 .clearfix:after {
     content: '';
     display: table;
     clear: both;
 }
-#main{
-   /*background-color: BurlyWood;*/
-   float: right;
-   height:200px;
-    width: 75%;
-}
-#sidebar{
-   /*background-color: IndianRed;*/
-   width:25%;
-   float: left;
-   height:200px;
-   overflow-y: hidden;
+
+#ghostbar {
+    background-color: rgb(26, 23, 27);
+    opacity: 0.5;
+    position: absolute;
+    z-index: 999
 }
 
-#dragbar{
-   background-color: darkslategray;
-   height:100%;
-   float: right;
-   width: 5px;
-   cursor: col-resize;
-}
-#ghostbar{
-    background-color:darkslategray;
-    opacity:0.5;
-    position:absolute;
+.dragbar-vertical {
+    background-color: rgb(26, 23, 27);
+    height: 100%;
+    float: right;
+    width: 8px;
     cursor: col-resize;
-    z-index:999
-    }
-    
-    
-    #main2{
-   /*background-color: BurlyWood;*/
-   float: right;
-   height:100%;
-    width: 50%;
-}
-#sidebar2{
-   /*background-color: IndianRed;*/
-   width:50%;
-   float: left;
-   height:100%;
-   overflow-y: hidden;
+    -webkit-user-select: none;
 }
 
-.dragbar-vertical{
-   background-color: darkslategray;
-   height:100%;
-   float: right;
-   width: 8px;
-   cursor: col-resize;
-   -webkit-user-select: none;
+.dragbar-horizontal {
+    background-color: rgb(26, 23, 27);
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 8px;
+    cursor: row-resize;
+    -webkit-user-select: none;
 }
 
-.dragbar-horizontal{
-   background-color: darkslategray;
-   width:100%;
-   position: absolute;
-   bottom: 0px;   
-   height: 8px;
-   cursor: row-resize;
-   -webkit-user-select: none;
-}
-
-
-    .sidebar-horizontal{
-   background-color: BurlyWood;
-   height:60%;
+.sidebar-horizontal {
+    /*background-color: BurlyWood;*/
+    height: 50%;
     width: 100%;
     display: inline-block;
     position: relative;
 }
-.main-horizontal{
-   background-color: IndianRed;
-   width:100%;
-   height:40%;
-   overflow-y: hidden;
+
+.main-horizontal {
+    /*background-color: IndianRed;*/
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
     display: inline-block;
+    position: relative;
+}
+
+.sidebar-vertical {
+    /*background-color: BurlyWood;*/
+    width: 50%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.main-vertical {
+    /*background-color: IndianRed;*/
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    float: right;
 }
