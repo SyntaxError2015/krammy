@@ -14,8 +14,39 @@ try {
 
 }
 
+//File status
+var fileChanged = false;
+
+var htmlContainer, kramdownContainer;
+
 $(document).ready(function() {
-    highlightCode();
+    htmlContainer = $('#html-generated');
+    kramdownContainer = $('#kramdown-code');
+
+    // Initialize highlighting theme
+    hljs.highlightBlock(kramdownContainer[0]);
+    hljs.highlightBlock(htmlContainer[0]);
+
+    //File open
+    ipc.on('open-file', function(event, fileContent) {
+        kramdownContainer.val(fileContent);
+        textEdited(kramdownContainer);
+    })
+
+    ipc.on('get-file', function(event, arg) {
+        var data = kramdownContainer.val();
+        ipc.send('returned-file', data);
+        fileChanged = false;
+    })
+
+    ipc.on('get-file-status', function(event, arg) {
+        ipc.send('file-status', fileChanged);
+    })
+
+    ipc.on('close-file', function(event, arg) {
+        kramdownContainer.val('');
+        fileChanged = false;
+    })
 });
 
 function resizeBarMouseDown(e, obj) {
@@ -86,33 +117,10 @@ function resizeBarMouseDown(e, obj) {
 
 }
 
-//File status
-var fileChanged = false;
-
-//File open
-ipc.on('open-file', function(event, fileContent) {
-    $('#kramdown-code')[0].innerText = fileContent;
-    textEdited($('#kramdown-code'));
-})
-
-ipc.on('get-file', function(event, arg) {
-    var data = $('#kramdown-code').val();
-    ipc.send('returned-file', data);
-    fileChanged = false;
-})
-
-ipc.on('get-file-status', function(event, arg) {
-    ipc.send('file-status', fileChanged);
-})
-
-ipc.on('close-file', function(event, arg) {
-    $('#kramdown-code').val('');
-    fileChanged = false;
-})
 
 function textEdited(obj) {
-    renderer.render($(obj)[0].innerText, updateHTML);
-    // renderer.render($(obj).val(), updateHTML);
+    renderer.render($(obj).val(), updateHTML);
+
     fileChanged = true;
 }
 
@@ -122,60 +130,5 @@ function updateHTML(htmlCode) {
     $('#html-generated').text(cleanHtmlCode);
     $('#html-rendered').html(htmlCode);
 
-    highlightCode();
-}
-
-function highlightCode() {
-    var kramdownContainer = $('.kramdown-container');
-    var htmlContainer = $('.html-container');
-
-    var caretPos = getCaretPosition(kramdownContainer[0]);
-
-    hljs.highlightBlock(kramdownContainer[0]);
     hljs.highlightBlock(htmlContainer[0]);
-
-    kramdownContainer.focus();
-    setCaretPosition(kramdownContainer, caretPos);
-}
-
-function getCaretPosition(editableDiv) {
-    var caretPos = 0,
-        sel, range;
-    if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-            range = sel.getRangeAt(0);
-            if (range.commonAncestorContainer.parentNode == editableDiv) {
-                caretPos = range.endOffset;
-            }
-        }
-    } else if (document.selection && document.selection.createRange) {
-        range = document.selection.createRange();
-        if (range.parentElement() == editableDiv) {
-            var tempEl = document.createElement("span");
-            editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-            var tempRange = range.duplicate();
-            tempRange.moveToElementText(tempEl);
-            tempRange.setEndPoint("EndToEnd", range);
-            caretPos = tempRange.text.length;
-        }
-    }
-
-    return caretPos;
-}
-
-function setCaretPosition(editableDiv, caretPos) {
-    var range = document.createRange();
-    var sel = window.getSelection();
-
-    range.setStart(editableDiv.firstChild, caretPos);
-    range.collapse(true);
-
-    $('#html-rendered').html("zzzzzzzzzzzzzzzzz");
-
-
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    var car = getCaretPosition(editableDiv);
 }
