@@ -1,27 +1,29 @@
 <html>
 
 <head>
-    <script src="index.js"></script>
     <link rel="stylesheet" href="css/containers.css">
-
 </head>
 
 <body>
-    <p id="p-html"> HTML HERE </p>
+    <div>
+        <p id="p-html"> HTML HERE </p>
         <p id="p-raw-html"> RAW HTML HERE</p>
         <input type="button" id="but" value="Click ME!!!"></input>
+    </div>
+    <br/>
+    <br/>
 
-    <!--<div style="height:100%;width:60%;resize: horizontal;overflow: auto;display:inline-block;position:relative;">
-            This is code
+    <div style="height:100%;width:60%;resize: horizontal;overflow: auto;display:inline-block;position:relative;">
+        This is code
+    </div>
+    <div style="height:100%;display:inline-block;width:auto;position:relative;">
+        <div style="display:inline-block;position:absolute;height:50%;width:100%;">
+            html code
         </div>
-        <div style="height:100%;display:inline-block;width:auto;position:relative;">
-            <div style="display:inline-block;position:absolute;height:50%;width:100%;">
-                html code
-            </div>
-            <div style="display:inline-block;position:absolute;height:50%;width:100%">
-                html style
-            </div>
-        </div>-->
+        <div style="display:inline-block;position:absolute;height:50%;width:100%">
+            html style
+        </div>
+    </div>
 
     <div id="sidebar">
         <span id="position"></span>
@@ -31,6 +33,11 @@
     <div id="main">
         main
     </div>
+
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
