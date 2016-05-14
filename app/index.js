@@ -2,10 +2,12 @@
 
 var converter = null;
 var renderer = null;
+var codeFormatter = null;
 try {
     window.$ = window.jQuery = require('jquery');
     converter = require('./js/converter.js');
     renderer = require('./js/renderer.js');
+    codeFormatter = require('js-beautify').html;
 } catch (error) {
 
 }
@@ -130,6 +132,8 @@ function textEdited(obj) {
 }
 
 function updateHTML(htmlCode) {
-    $('#html-generated').text(htmlCode);
+    var cleanHtmlCode = codeFormatter(htmlCode);
+    
+    $('#html-generated').text(cleanHtmlCode);
     $('#html-rendered').html(htmlCode);
 }
