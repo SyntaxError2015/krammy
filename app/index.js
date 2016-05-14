@@ -88,7 +88,8 @@ function resizeBarMouseDown(e, obj) {
 }
 
 function textEdited(obj) {
-    renderer.render($(obj).text(), updateHTML);
+    renderer.render($(obj)[0].innerText, updateHTML);
+    // renderer.render($(obj).val(), updateHTML);
 }
 
 function updateHTML(htmlCode) {
@@ -96,12 +97,61 @@ function updateHTML(htmlCode) {
 
     $('#html-generated').text(cleanHtmlCode);
     $('#html-rendered').html(htmlCode);
-    
+
     highlightCode();
 }
 
 function highlightCode() {
-    $('.code-container').each(function(i, block) {
-        hljs.highlightBlock(block);
-    });
+    var kramdownContainer = $('.kramdown-container');
+    var htmlContainer = $('.html-container');
+
+    var caretPos = getCaretPosition(kramdownContainer[0]);
+
+    hljs.highlightBlock(kramdownContainer[0]);
+    hljs.highlightBlock(htmlContainer[0]);
+
+    kramdownContainer.focus();
+    setCaretPosition(kramdownContainer, caretPos);
+}
+
+function getCaretPosition(editableDiv) {
+    var caretPos = 0,
+        sel, range;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            if (range.commonAncestorContainer.parentNode == editableDiv) {
+                caretPos = range.endOffset;
+            }
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        if (range.parentElement() == editableDiv) {
+            var tempEl = document.createElement("span");
+            editableDiv.insertBefore(tempEl, editableDiv.firstChild);
+            var tempRange = range.duplicate();
+            tempRange.moveToElementText(tempEl);
+            tempRange.setEndPoint("EndToEnd", range);
+            caretPos = tempRange.text.length;
+        }
+    }
+    
+    return caretPos;
+}
+
+function setCaretPosition(editableDiv, caretPos) {    
+    var range = document.createRange();
+    var sel = window.getSelection();
+    
+    range.setStart(editableDiv.firstChild, caretPos);
+    range.collapse(true);
+    
+    $('#html-rendered').html("zzzzzzzzzzzzzzzzz");
+    
+        
+    sel.removeAllRanges();
+    sel.addRange(range);
+    
+    var car = getCaretPosition(editableDiv);
 }
