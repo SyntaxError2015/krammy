@@ -1,9 +1,17 @@
 'use strict'
 
-window.$ = window.jQuery = require('jquery');
-const converter = require('./js/converter.js');
-const renderer = require('./js/renderer.js');
-const codeFormatter = require('js-beautify').html;
+var converter = null;
+var renderer = null;
+var codeFormatter = null;
+try {
+    window.$ = window.jQuery = require('jquery');
+    converter = require('./js/converter.js')
+    converter = require('./js/converter.js');
+    renderer = require('./js/renderer.js');
+    codeFormatter = require('js-beautify').html;
+} catch (error) {
+
+}
 
 function resizeBarMouseDown(e, obj) {
     e.preventDefault();
