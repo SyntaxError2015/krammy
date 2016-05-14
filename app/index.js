@@ -1,18 +1,14 @@
 'use strict'
 
-var kramed = require('kramed');
-
-var phtml = document.getElementById('p-html');
-var praw = document.getElementById('p-raw-html');
+const converter = require('./js/converter.js')
 
 $(document).ready(function() {
     $("#but").click(function() {
-        var data = kramed('HEADER\n============\n\nPARAGRAPH  \nLINE');
+        var data = converter.convertToHtml('HEADER\n============\n\nPARAGRAPH  \nLINE');
 
         $('#p-html').html(data);
         $('#p-raw-html').text(data);
     });
-
 
     var i = 0;
     var dragging = false;
