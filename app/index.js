@@ -1,29 +1,15 @@
 'use strict'
 
-var converter = null;
+var renderer = null;
+var codeFormatter = null;
 var ipc = null;
 try {
     window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js')
+    renderer = require('./js/renderer.js');
+    codeFormatter = require('js-beautify').html;
     ipc = require('electron').ipcRenderer;
 } catch (error) {
 
-}
-
-$(document).ready(function() {
-    $("#but").click(function() {
-        var data = converter.convertToHtml('HEADER\n============\n\nPARAGRAPH  \nLINE');
-
-        $('#p-html').html(data);
-        $('#p-raw-html').text(data);
-    });
-});
-
-function textEdited(obj) {
-    var htmlCode = converter.convertToHtml($(obj).val());
-    $('#html-generated').text(htmlCode);
-    $('#html-rendered').html(htmlCode);
-    fileChanged = true;
 }
 
 function resizeBarMouseDown(e, obj) {
@@ -118,3 +104,15 @@ ipc.on('close-file', function(event, arg) {
     $('#kramdown-code').val('');
     fileChanged = false;
 })
+
+function textEdited(obj) {
+    renderer.render($(obj).val(), updateHTML);
+    fileChanged = true;
+}
+
+function updateHTML(htmlCode) {
+    var cleanHtmlCode = codeFormatter(htmlCode);
+
+    $('#html-generated').text(cleanHtmlCode);
+    $('#html-rendered').html(htmlCode);
+}
