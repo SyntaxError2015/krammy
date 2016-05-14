@@ -1,14 +1,13 @@
 'use strict'
 
-var converter = null;
 var renderer = null;
 var codeFormatter = null;
+var ipc = null;
 try {
     window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js')
-    converter = require('./js/converter.js');
     renderer = require('./js/renderer.js');
     codeFormatter = require('js-beautify').html;
+    ipc = require('electron').ipcRenderer;
 } catch (error) {
 
 }
@@ -81,8 +80,34 @@ function resizeBarMouseDown(e, obj) {
 
 }
 
+//File status
+var fileChanged = false;
+
+//File open
+ipc.on('open-file', function(event, fileContent) {
+    // document.getElementById('open-file').innerHTML = `You selected: ${path}`
+    $('#kramdown-code').val(fileContent);
+    textEdited($('#kramdown-code'));
+})
+
+ipc.on('get-file', function(event, arg) {
+    var data = $('#kramdown-code').val();
+    ipc.send('returned-file', data);
+    fileChanged = false;
+})
+
+ipc.on('get-file-status', function(event, arg) {
+    ipc.send('file-status', fileChanged);
+})
+
+ipc.on('close-file', function(event, arg) {
+    $('#kramdown-code').val('');
+    fileChanged = false;
+})
+
 function textEdited(obj) {
     renderer.render($(obj).val(), updateHTML);
+    fileChanged = true;
 }
 
 function updateHTML(htmlCode) {

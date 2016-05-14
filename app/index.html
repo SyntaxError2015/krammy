@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/containers.css">
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/main.css">
@@ -11,7 +12,7 @@
         <div class="sidebar-vertical">
             <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-            <textarea onkeyup="textEdited(this)" class="code-textarea"></textarea>
+            <textarea id="kramdown-code" onkeyup="textEdited(this)" class="code-textarea"></textarea>
         </div>
         <div class="main-vertical">
             <div class="second-column">
