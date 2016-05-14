@@ -1,0 +1,28 @@
+{
+  "name": "krammy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./app/app.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyntaxError2015/krammy.git"
+  },
+  "author": "SyntaxError",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SyntaxError2015/krammy/issues"
+  },
+  "homepage": "https://github.com/SyntaxError2015/krammy#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.0.2"
+  },
+  "dependencies": {
+    "electron": "^0.4.1",
+    "jquery": "^2.2.3",
+    "kramed": "^0.5.6"
+  }
+}
