@@ -1,25 +1,9 @@
 'use strict'
 
-var converter = null;
-var renderer = null;
-var codeFormatter = null;
-try {
-    window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js');
-    renderer = require('./js/renderer.js');
-    codeFormatter = require('js-beautify').html;
-} catch (error) {
-
-}
-
-$(document).ready(function () {
-    $("#but").click(function () {
-        var data = converter.convertToHtml('HEADER\n============\n\nPARAGRAPH  \nLINE');
-
-        $('#p-html').html(data);
-        $('#p-raw-html').text(data);
-    });
-});
+window.$ = window.jQuery = require('jquery');
+const converter = require('./js/converter.js');
+const renderer = require('./js/renderer.js');
+const codeFormatter = require('js-beautify').html;
 
 function resizeBarMouseDown(e, obj) {
     e.preventDefault();
@@ -56,7 +40,7 @@ function resizeBarMouseDown(e, obj) {
         }).appendTo(container);
     }
 
-    $(document).mousemove(function (e) {
+    $(document).mousemove(function(e) {
         if (isVertical)
             ghostbar.css("left", e.pageX - container.position().left - ghostbar.width() / 2);
         else
@@ -65,7 +49,7 @@ function resizeBarMouseDown(e, obj) {
 
 
     //bind on mouseup
-    $(document).mouseup(function (e) {
+    $(document).mouseup(function(e) {
         var percentage = 0;
 
         if (isVertical)
@@ -95,7 +79,7 @@ function textEdited(obj) {
 
 function updateHTML(htmlCode) {
     var cleanHtmlCode = codeFormatter(htmlCode);
-    
+
     $('#html-generated').text(cleanHtmlCode);
     $('#html-rendered').html(htmlCode);
 }
