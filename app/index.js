@@ -1,15 +1,17 @@
 'use strict'
 
 var converter = null;
+var ipc = null;
 try {
     window.$ = window.jQuery = require('jquery');
     converter = require('./js/converter.js')
+    ipc = require('electron').ipcRenderer;
 } catch (error) {
 
 }
 
-$(document).ready(function () {
-    $("#but").click(function () {
+$(document).ready(function() {
+    $("#but").click(function() {
         var data = converter.convertToHtml('HEADER\n============\n\nPARAGRAPH  \nLINE');
 
         $('#p-html').html(data);
@@ -21,6 +23,7 @@ function textEdited(obj) {
     var htmlCode = converter.convertToHtml($(obj).val());
     $('#html-generated').text(htmlCode);
     $('#html-rendered').html(htmlCode);
+    fileChanged = true;
 }
 
 function resizeBarMouseDown(e, obj) {
@@ -58,7 +61,7 @@ function resizeBarMouseDown(e, obj) {
         }).appendTo(container);
     }
 
-    $(document).mousemove(function (e) {
+    $(document).mousemove(function(e) {
         if (isVertical)
             ghostbar.css("left", e.pageX - container.position().left - ghostbar.width() / 2);
         else
@@ -67,7 +70,7 @@ function resizeBarMouseDown(e, obj) {
 
 
     //bind on mouseup
-    $(document).mouseup(function (e) {
+    $(document).mouseup(function(e) {
         var percentage = 0;
 
         if (isVertical)
@@ -90,3 +93,28 @@ function resizeBarMouseDown(e, obj) {
     });
 
 }
+
+//File status
+var fileChanged = false;
+
+//File open
+ipc.on('open-file', function(event, fileContent) {
+    // document.getElementById('open-file').innerHTML = `You selected: ${path}`
+    $('#kramdown-code').val(fileContent);
+    textEdited($('#kramdown-code'));
+})
+
+ipc.on('get-file', function(event, arg) {
+    var data = $('#kramdown-code').val();
+    ipc.send('returned-file', data);
+    fileChanged = false;
+})
+
+ipc.on('get-file-status', function(event, arg) {
+    ipc.send('file-status', fileChanged);
+})
+
+ipc.on('close-file', function(event, arg) {
+    $('#kramdown-code').val('');
+    fileChanged = false;
+})
