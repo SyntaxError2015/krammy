@@ -1,0 +1,73 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+#ghostbar {
+    background-color: rgb(26, 23, 27);
+    opacity: 0.5;
+    position: absolute;
+    z-index: 999
+}
+
+.dragbar-vertical {
+    background-color: rgb(26, 23, 27);
+    height: 100%;
+    float: right;
+    width: 8px;
+    cursor: col-resize;
+    -webkit-user-select: none;
+}
+
+.dragbar-horizontal {
+    background-color: rgb(26, 23, 27);
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 8px;
+    cursor: row-resize;
+    -webkit-user-select: none;
+}
+
+.sidebar-horizontal {
+    /*background-color: BurlyWood;*/
+    height: 50%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.main-horizontal {
+    /*background-color: IndianRed;*/
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+}
+
+.sidebar-vertical {
+    /*background-color: BurlyWood;*/
+    width: 50%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.main-vertical {
+    /*background-color: IndianRed;*/
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    float: right;
+}
