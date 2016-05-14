@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/containers.css">
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/highlight.js/monokai-sublime.css">
 </head>
 
 <body>
@@ -12,14 +13,15 @@
         <div class="sidebar-vertical">
             <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-            <textarea id="kramdown-code" onkeyup="textEdited(this)" class="code-textarea"></textarea>
+            <!--<textarea id="kramdown-code" onkeyup="textEdited(this)" class="code-textarea code-container"></textarea>-->
+            <div id="kramdown-code" onkeyup="textEdited(this)" contenteditable="true" class="code-textarea kramdown-container"></div>
         </div>
         <div class="main-vertical">
             <div class="second-column">
                 <div class="sidebar-horizontal">
                     <div class="dragbar-horizontal" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-                    <div id="html-generated"></div>
+                    <div id="html-generated" class="html-container"></div>
                 </div>
 
                 <div class="main-horizontal">
