@@ -12,6 +12,9 @@
     top: 0;
     height: 30px;
     width: 100%;
+    /*background-image: url('../images/logo.png');
+    background-size: contain;
+    background-repeat: none;*/
 }
 
 .top-buttons .button {
@@ -30,7 +33,7 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.top-buttons .button.selected{
+.top-buttons .button.selected {
     background-color: #0162A8;
 }
 
@@ -39,8 +42,8 @@
 
 .code-textarea {
     position: absolute;
-    width: calc(100% - 8px);
-    height: 100%;
+    width: calc(100% - 18px);
+    height: calc(100% - 10px);
     padding: 5px !important;
     overflow: auto;
     resize: none;
@@ -90,5 +93,5 @@
 
 .coding-style {
     font-family: 'Inconsolata';
-    font-size: 15px;
+    font-size: 16px;
 }

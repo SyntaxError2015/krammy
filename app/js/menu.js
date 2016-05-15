@@ -44,9 +44,27 @@ function makeH3() {
     });
 }
 
+function makeH4() {
+    isTextSelected(function(text) {
+        return "#### " + text;
+    });
+}
+
+function makeH5() {
+    isTextSelected(function(text) {
+        return "##### " + text;
+    });
+}
+
+function makeH6() {
+    isTextSelected(function(text) {
+        return "###### " + text;
+    });
+}
+
 function toggleFullHtml(obj) {
     generateFullHtml = !generateFullHtml;
-    
+
     $(obj).toggleClass('selected');
     textEdited(kramdownContainer);
 }

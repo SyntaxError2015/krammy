@@ -97,3 +97,9 @@ function highlightContainers() {
     hljs.highlightBlock(kramdownContainer[0]);
     hljs.highlightBlock(htmlContainer[0]);
 }
+
+function updateInterval(obj) {
+    var delay = parseInt($(obj).val());
+    if (!isNaN(delay))
+        renderer.setTimeout(delay);
+}

@@ -24,8 +24,20 @@
         <div onclick="makeH1()" class="button">H1</div>
         <div onclick="makeH2()" class="button">H2</div>
         <div onclick="makeH3()" class="button">H3</div>
+        <div onclick="makeH4()" class="button">H4</div>
+        <div onclick="makeH5()" class="button">H5</div>
+        <div onclick="makeH6()" class="button">H6</div>
+
+        <div style="position:absolute;left:50%;margin-left:-115px;top:8px;">
+            <img src="./images/logo.png" style="height:20px;">
+        </div>
+
         <div onclick="toggleFullHtml(this)" style="float: right" class="button">
             Full HTML
+        </div>
+        <div style="float: right" class="button">
+            Delay(ms):
+            <input type="text" style="width:50px;border:none;" onblur="updateInterval(this)" value="1000" />
         </div>
     </div>
     <div class="big-container">
