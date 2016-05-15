@@ -2,9 +2,8 @@ const electron = require('electron');
 const app = electron.app;
 const Menu = electron.Menu;
 const BrowserWindow = electron.BrowserWindow;
-const ipc = require('electron').ipcMain;
-
-const dialog = require('electron').dialog;
+const ipc = electron.ipcMain;
+const dialog = electron.dialog;
 
 var mainWindow = null;
 
