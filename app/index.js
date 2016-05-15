@@ -81,7 +81,7 @@ function textEdited(obj) {
 }
 
 function updateHTML(htmlCode) {
-    if (generateFullHtml) {
+    if (isFullHtml()) {
         htmlCode = "<!DOCTYPE html><html><head></head><body>\n" + htmlCode + "</body></html>";
     }
 

@@ -1,4 +1,5 @@
 var kramdownContainer;
+var generateFullHtml = false;
 
 $(document).ready(function() {
     kramdownContainer = $('#kramdown-code');
@@ -41,4 +42,15 @@ function makeH3() {
     isTextSelected(function(text) {
         return "### " + text;
     });
+}
+
+function toggleFullHtml(obj) {
+    generateFullHtml = !generateFullHtml;
+    
+    $(obj).toggleClass('selected');
+    textEdited(kramdownContainer);
+}
+
+function isFullHtml() {
+    return generateFullHtml;
 }
