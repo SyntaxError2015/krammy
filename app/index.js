@@ -36,8 +36,18 @@ $(document).ready(function() {
 
     // Initialize code components
     highlightContainers();
-    kramdownContainer.val('# KRAMMY HEADER');
-    textEdited(kramdownContainer);
+    kramdownContainer.val('Krammy\n\
+======\n\
+\n\
+Team: SyntaxError\n\
+-----------------\n\
+\n\
+> A **multi-platform** kramdown code converter!\n\
+ \n\
+ \n\
+---------------------------------\n\
+![Haufe](images/icon.png)');
+    textEdited(kramdownContainer, true);
 });
 
 function setIpcEvents() {
@@ -75,10 +85,11 @@ function toggleGenerateFullHtml() {
     textEdited(kramdownContainer);
 }
 
-function textEdited(obj) {
+function textEdited(obj, notUpdate) {
     renderer.render($(obj).val(), updateHTML);
 
-    fileChanged = true;
+    if (notUpdate) {} else
+        fileChanged = true;
 }
 
 function updateHTML(htmlCode) {

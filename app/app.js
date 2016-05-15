@@ -8,6 +8,7 @@ const dialog = require('electron').dialog;
 
 var mainWindow = null;
 
+
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
         width: 900,
@@ -15,7 +16,9 @@ app.on('ready', function() {
         minWidth: 900,
         minHeight: 650,
         center: true,
-        darkTheme: true
+        darkTheme: true,
+        title: 'Krammy',
+        icon: __dirname + '/images/icon.png'
     });
     mainWindow.on('closed', function() {
         mainWindow = null;
