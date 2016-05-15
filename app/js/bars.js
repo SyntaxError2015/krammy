@@ -34,10 +34,6 @@ function resizeBarMouseDown(e, obj) {
         }).appendTo(container);
     }
     
-    setDocumentMouseEvents(isVertical);
-}
-
-function setDocumentMouseEvents(isVertical) {
     $(document).mousemove(function(e) {
         if (isVertical)
             ghostbar.css("left", e.pageX - container.position().left - ghostbar.width() / 2);

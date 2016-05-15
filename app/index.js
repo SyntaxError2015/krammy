@@ -24,10 +24,6 @@ $(document).ready(function() {
     renderedHtmlContainer = $('#html-rendered')
     kramdownContainer = $('#kramdown-code');
 
-    // Initialize highlighting theme
-    hljs.highlightBlock(kramdownContainer[0]);
-    hljs.highlightBlock(htmlContainer[0]);
-
     // Set ipc events
     setIpcEvents();
 
@@ -37,6 +33,11 @@ $(document).ready(function() {
             return false;
         }
     });
+
+    // Initialize code components
+    highlightContainers();
+    kramdownContainer.val('# KRAMMY HEADER');
+    textEdited(kramdownContainer);
 });
 
 function setIpcEvents() {
@@ -69,7 +70,7 @@ function setIpcEvents() {
 
 function toggleGenerateFullHtml() {
     generateFullHtml = !generateFullHtml;
-    
+
     textEdited(kramdownContainer);
 }
 
@@ -89,5 +90,10 @@ function updateHTML(htmlCode) {
     htmlContainer.text(cleanHtmlCode);
     renderedHtmlContainer.html(htmlCode);
 
+    highlightContainers();
+}
+
+function highlightContainers() {
+    hljs.highlightBlock(kramdownContainer[0]);
     hljs.highlightBlock(htmlContainer[0]);
 }

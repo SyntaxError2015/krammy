@@ -19,7 +19,7 @@
   "homepage": "https://github.com/SyntaxError2015/krammy#readme",
   "devDependencies": {
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "^1.0.2",
+    "electron-prebuilt": "^1.0.2"
   },
   "dependencies": {
     "highlight.js": "^9.3.0",
