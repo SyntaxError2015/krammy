@@ -2,12 +2,12 @@ const fs = require('fs');
 
 module.exports = function(dialog, mainWindow, ipc) {
 
-    const extensions = ['txt'];
+    const extensions = ['md', 'kd', 'txt'];
 
     function openFile() {
         dialog.showOpenDialog({
             filters: [{
-                name: 'text',
+                name: 'Kramdown files',
                 extensions: extensions
             }]
         }, function(fileNames) {

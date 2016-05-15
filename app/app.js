@@ -29,7 +29,7 @@ app.on('ready', function() {
 
     //set the application menu
     const menuBuilder = require('./electron-js/menu.js');
-    menuBuilder.devMode(true);
+    menuBuilder.devMode(false); // SET THIS TO TRUE IN ORDER TO ENABLE DEV TOOLS
     menuBuilder.setCallbacks({
         openFile: filesModule.openFile,
         saveFile: filesModule.saveFile,
