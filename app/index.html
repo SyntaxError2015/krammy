@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/highlight.js/monokai-sublime.css">
 
-    <!--<script src="jquery.min.js"></script>-->
     <script>
         window.$ = window.jQuery = require('jquery');
     </script>
@@ -25,6 +24,9 @@
         <div onclick="makeH1()" class="button">H1</div>
         <div onclick="makeH2()" class="button">H2</div>
         <div onclick="makeH3()" class="button">H3</div>
+        <div onclick="toggleFullHtml(this)" style="float: right" class="button">
+            Full HTML
+        </div>
     </div>
     <div class="big-container">
         <div class="sidebar-vertical">
@@ -48,8 +50,9 @@
     </div>
 
     <script src="js/rangyinputs-jquery.js"></script>
-    <!--<script src="js/tab-in-textarea.js"></script>-->
     <script src="index.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/bars.js"></script>
 </body>
 
 </html>

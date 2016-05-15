@@ -6,9 +6,7 @@ var timer = null;
 var timeout = 1000;
 
 function render(markDownString, uiUpdateCallback) {
-    var htmlCode = converter.convertToHtml(markDownString);
-
-    return uiUpdateCallback(htmlCode);
+    return converter.convertToHtml(markDownString, uiUpdateCallback);
 }
 
 module.exports = {

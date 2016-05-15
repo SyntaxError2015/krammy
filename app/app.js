@@ -6,10 +6,7 @@ const ipc = require('electron').ipcMain;
 
 const dialog = require('electron').dialog;
 
-
 var mainWindow = null;
-
-
 
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
@@ -49,9 +46,4 @@ app.on('ready', function() {
 
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.maximize();
-
-    // mainWindow.webContents.toggleDevTools();
-
-
-
 });
