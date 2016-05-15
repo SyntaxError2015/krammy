@@ -15,6 +15,7 @@ try {
 
 //File status
 var fileChanged = false;
+var generateFullHtml = false;
 
 var htmlContainer, kramdownContainer, renderedHtmlContainer;
 
@@ -26,10 +27,10 @@ $(document).ready(function() {
     // Initialize highlighting theme
     hljs.highlightBlock(kramdownContainer[0]);
     hljs.highlightBlock(htmlContainer[0]);
-    
+
     // Set ipc events
     setIpcEvents();
-    
+
     // Supress tab in textarea
     kramdownContainer.keydown(function(e) {
         if (e.which == 9) {
@@ -66,6 +67,12 @@ function setIpcEvents() {
     })
 }
 
+function toggleGenerateFullHtml() {
+    generateFullHtml = !generateFullHtml;
+    
+    textEdited(kramdownContainer);
+}
+
 function textEdited(obj) {
     renderer.render($(obj).val(), updateHTML);
 
@@ -73,8 +80,9 @@ function textEdited(obj) {
 }
 
 function updateHTML(htmlCode) {
-
-    htmlCode = "<!DOCTYPE html><html><head></head><body>\n" + htmlCode + "</body></html>";
+    if (generateFullHtml) {
+        htmlCode = "<!DOCTYPE html><html><head></head><body>\n" + htmlCode + "</body></html>";
+    }
 
     var cleanHtmlCode = codeFormatter(htmlCode);
 
