@@ -1,92 +1,117 @@
 'use strict'
 
-var converter = null;
+var renderer = null;
+var codeFormatter = null;
+var ipc = null;
+var hljs = null;
 try {
-    window.$ = window.jQuery = require('jquery');
-    converter = require('./js/converter.js')
+    renderer = require('./js/renderer.js');
+    codeFormatter = require('js-beautify').html;
+    hljs = require('highlight.js')
+    ipc = require('electron').ipcRenderer;
 } catch (error) {
 
 }
 
-$(document).ready(function () {
-    $("#but").click(function () {
-        var data = converter.convertToHtml('HEADER\n============\n\nPARAGRAPH  \nLINE');
+//File status
+var fileChanged = false;
+var generateFullHtml = false;
 
-        $('#p-html').html(data);
-        $('#p-raw-html').text(data);
+var htmlContainer, kramdownContainer, renderedHtmlContainer;
+
+$(document).ready(function() {
+    htmlContainer = $('#html-generated');
+    renderedHtmlContainer = $('#html-rendered')
+    kramdownContainer = $('#kramdown-code');
+
+    // Set ipc events
+    setIpcEvents();
+
+    // Supress tab in textarea
+    kramdownContainer.keydown(function(e) {
+        if (e.which == 9) {
+            return false;
+        }
     });
+
+    // Initialize code components
+    highlightContainers();
+    kramdownContainer.val('Krammy\n\
+======\n\
+\n\
+Team: SyntaxError\n\
+-----------------\n\
+\n\
+> A **multi-platform** kramdown code converter!\n\
+ \n\
+ \n\
+---------------------------------\n\
+![Haufe](images/icon.png)');
+    textEdited(kramdownContainer, true);
 });
 
-function textEdited(obj) {
-    var htmlCode = converter.convertToHtml($(obj).val());
-    $('#html-generated').text(htmlCode);
-    $('#html-rendered').html(htmlCode);
+function setIpcEvents() {
+    //File open
+    ipc.on('open-file', function(event, fileContent) {
+        kramdownContainer.val(fileContent);
+        textEdited(kramdownContainer);
+    })
+
+    ipc.on('get-file', function(event, arg) {
+        var data = kramdownContainer.val();
+        ipc.send('returned-file', data);
+        fileChanged = false;
+    })
+
+    ipc.on('get-html-file', function(event, arg) {
+        var data = htmlContainer.text();
+        ipc.send('returned-file', data);
+    })
+
+    ipc.on('get-file-status', function(event, arg) {
+        ipc.send('file-status', fileChanged);
+    })
+
+    ipc.on('close-file', function(event, arg) {
+        kramdownContainer.val('');
+        fileChanged = false;
+        textEdited(kramdownContainer);
+    })
 }
 
-function resizeBarMouseDown(e, obj) {
-    e.preventDefault();
+function toggleGenerateFullHtml() {
+    generateFullHtml = !generateFullHtml;
 
-    var bar = $(obj);
-    var sidebar = $(obj).parent();
-    var container = sidebar.parent();
-    var main = sidebar.next();
+    textEdited(kramdownContainer);
+}
 
-    var isVertical = bar.attr('class').indexOf('-vertical') > 0;
+function textEdited(obj, notUpdate) {
+    renderer.render($(obj).val(), updateHTML);
 
-    var ghostbar = null;
-    if (isVertical) {
-        ghostbar = $('<div>', {
-            id: 'ghostbar',
-            css: {
-                height: bar.height(),
-                top: 0,
-                left: sidebar.width() - bar.width(),
-                width: bar.width(),
-                cursor: 'col-resize'
-            }
-        }).appendTo(container);
-    } else {
-        ghostbar = $('<div>', {
-            id: 'ghostbar',
-            css: {
-                height: bar.height(),
-                top: sidebar.height() - bar.height(),
-                left: 0,
-                width: bar.width(),
-                cursor: 'row-resize'
-            }
-        }).appendTo(container);
+    if (notUpdate) {} else
+        fileChanged = true;
+}
+
+function updateHTML(htmlCode) {
+    if (isFullHtml()) {
+        htmlCode = "<!DOCTYPE html><html><head></head><body>\n" + htmlCode + "</body></html>";
     }
 
-    $(document).mousemove(function (e) {
-        if (isVertical)
-            ghostbar.css("left", e.pageX - container.position().left - ghostbar.width() / 2);
-        else
-            ghostbar.css("top", e.pageY - container.offset().top - ghostbar.height() / 2);
-    });
+    var cleanHtmlCode = codeFormatter(htmlCode);
 
+    htmlContainer.text(cleanHtmlCode);
+    renderedHtmlContainer.html(htmlCode);
 
-    //bind on mouseup
-    $(document).mouseup(function (e) {
-        var percentage = 0;
+    highlightContainers();
+}
 
-        if (isVertical)
-            percentage = ((e.pageX - container.position().left + ghostbar.width() / 2) / container.width()) * 100;
-        else
-            percentage = ((e.pageY - container.offset().top + ghostbar.height() / 2) / container.height()) * 100;
+function highlightContainers() {
+    hljs.highlightBlock(kramdownContainer[0]);
+    hljs.highlightBlock(htmlContainer[0]);
+}
 
-        var mainPercentage = 100 - percentage;
-
-        if (isVertical) {
-            sidebar.css("width", percentage + "%");
-            main.css("width", mainPercentage + "%");
-        } else {
-            sidebar.css("height", percentage + "%");
-            main.css("height", mainPercentage + "%");
-        }
-        $('#ghostbar').remove();
-        $(document).unbind('mousemove');
-        $(document).unbind('mouseup');
-    });
-
+function updateInterval(obj) {
+    var delay = parseInt($(obj).val());
+    if (!isNaN(delay))
+        renderer.setTimeout(delay);
 }

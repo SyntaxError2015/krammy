@@ -53,6 +53,7 @@ html {
     overflow: hidden;
     display: inline-block;
     position: relative;
+    margin-top: -4px;
 }
 
 .sidebar-vertical {

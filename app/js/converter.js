@@ -2,8 +2,12 @@
 
 var kramed = require('kramed');
 
-function convertToHtml(kramdownString) {
-    return kramed(kramdownString);
+function convertToHtml(kramdownString, uiUpdateCallback) {
+    return kramed(kramdownString, function(err, content) {
+        if (err) throw err;
+
+        uiUpdateCallback(content);
+    });
 }
 
 $(document).ready(function() {
@@ -15,7 +19,7 @@ $(document).ready(function() {
         pedantic: false,
         sanitize: true,
         smartLists: true,
-        smartypants: false
+        smartypants: true
     });
 })
 

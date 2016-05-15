@@ -1,24 +1,57 @@
+<!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/containers.css">
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/highlight.js/monokai-sublime.css">
+
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
 </head>
 
 <body>
+    <div class="top-buttons">
+        <div onclick="makeBold()" class="button">
+            B
+        </div>
+        <div onclick="makeItalic()" class="button">
+            I
+        </div>
+        <div onclick="makeH1()" class="button">H1</div>
+        <div onclick="makeH2()" class="button">H2</div>
+        <div onclick="makeH3()" class="button">H3</div>
+        <div onclick="makeH4()" class="button">H4</div>
+        <div onclick="makeH5()" class="button">H5</div>
+        <div onclick="makeH6()" class="button">H6</div>
+
+        <div style="position:absolute;left:50%;margin-left:-115px;top:8px;">
+            <img src="./images/logo.png" style="height:20px;">
+        </div>
+
+        <div onclick="toggleFullHtml(this)" style="float: right" class="button">
+            Full HTML
+        </div>
+        <div style="float: right" class="button">
+            Delay(ms):
+            <input type="text" style="width:50px;border:none;" onblur="updateInterval(this)" value="1000" />
+        </div>
+    </div>
     <div class="big-container">
         <div class="sidebar-vertical">
             <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-            <textarea onkeyup="textEdited(this)" class="code-textarea"></textarea>
+            <textarea id="kramdown-code" onkeyup="textEdited(this)" class="code-textarea code-container coding-style"></textarea>
         </div>
         <div class="main-vertical">
             <div class="second-column">
                 <div class="sidebar-horizontal">
                     <div class="dragbar-horizontal" onmousedown="resizeBarMouseDown(event,this)"></div>
 
-                    <div id="html-generated"></div>
+                    <div id="html-generated" class="html-container coding-style"></div>
                 </div>
 
                 <div class="main-horizontal">
@@ -28,8 +61,10 @@
         </div>
     </div>
 
-    <script src="jquery-2.2.3.min.js"></script>
+    <script src="js/rangyinputs-jquery.js"></script>
     <script src="index.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/bars.js"></script>
 </body>
 
 </html>
