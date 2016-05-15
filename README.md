@@ -37,9 +37,9 @@ the appropiate zip file for your operating system.
 # Functionality
 
 The application consists of 3 panes:  
-1. The leftmost pane is used for writing **kramdown** code.
-2. The upper-right pane displays the generated html code.
-3. The lower-right pane displays the rendered html code, as it would be displayed in a browser.
+* The leftmost pane is used for writing **kramdown** code.
+* The upper-right pane displays the generated html code.
+* The lower-right pane displays the rendered html code, as it would be displayed in a browser.
 
 There are 2 available toolbars: one for interacting with the OS (also has keybindings 
 for each action), and one for styling the kramdown code.
