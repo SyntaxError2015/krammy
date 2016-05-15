@@ -10,8 +10,10 @@ var mainWindow = null;
 
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 900,
+        height: 650,
+        minWidth: 900,
+        minHeight: 650,
         center: true,
         darkTheme: true
     });

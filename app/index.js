@@ -65,6 +65,7 @@ function setIpcEvents() {
     ipc.on('close-file', function(event, arg) {
         kramdownContainer.val('');
         fileChanged = false;
+        textEdited(kramdownContainer);
     })
 }
 
