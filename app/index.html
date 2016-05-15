@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,9 +7,25 @@
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/highlight.js/monokai-sublime.css">
+
+    <!--<script src="jquery.min.js"></script>-->
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
 </head>
 
 <body>
+    <div class="top-buttons">
+        <div onclick="makeBold()" class="button">
+            B
+        </div>
+        <div onclick="makeItalic()" class="button">
+            I
+        </div>
+        <div onclick="makeH1()" class="button">H1</div>
+        <div onclick="makeH2()" class="button">H2</div>
+        <div onclick="makeH3()" class="button">H3</div>
+    </div>
     <div class="big-container">
         <div class="sidebar-vertical">
             <div class="dragbar-vertical" onmousedown="resizeBarMouseDown(event,this)"></div>
@@ -30,7 +47,8 @@
         </div>
     </div>
 
-    <script src="jquery-2.2.3.min.js"></script>
+    <script src="js/rangyinputs-jquery.js"></script>
+    <!--<script src="js/tab-in-textarea.js"></script>-->
     <script src="index.js"></script>
 </body>
 

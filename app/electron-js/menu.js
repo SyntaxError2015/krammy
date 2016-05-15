@@ -45,6 +45,12 @@ var template = [{
             callbacks.saveFileAs()
         },
     }, {
+        label: 'Export HTML',
+        // accelerator: 'CmdOrCtrl+Shift+S',
+        click: function() {
+            callbacks.exportHTML()
+        },
+    }, {
         label: 'Close file',
         accelerator: 'CmdOrCtrl+Q',
         click: function() {

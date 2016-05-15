@@ -65,6 +65,27 @@ module.exports = function(dialog, mainWindow, ipc) {
     }
 
 
+    function exportHTML() {
+        const options = {
+            title: 'Save HTML file',
+            filters: [{
+                name: 'HTML file',
+                extensions: ['html']
+            }]
+        }
+        dialog.showSaveDialog(options, function(file) {
+            if (file == null) {
+
+            } else {
+                mainWindow.webContents.send('get-html-file', 'file');
+
+                ipc.once('returned-file', function(event, fileContent) {
+                    fs.writeFile(file, fileContent, 'utf-8');
+                });
+            }
+        })
+    }
+
 
     function closeFile(callback) {
         mainWindow.webContents.send('get-file-status', 'file');
@@ -105,7 +126,8 @@ module.exports = function(dialog, mainWindow, ipc) {
         closeFile: closeFile,
         getFilePath: function() {
             return filePath;
-        }
+        },
+        exportHTML: exportHTML
     };
 }
 

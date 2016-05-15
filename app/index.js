@@ -5,7 +5,7 @@ var codeFormatter = null;
 var ipc = null;
 var hljs = null;
 try {
-    window.$ = window.jQuery = require('jquery');
+    // window.$ = window.jQuery = require('jquery');
     renderer = require('./js/renderer.js');
     codeFormatter = require('js-beautify').html;
     hljs = require('highlight.js')
@@ -40,6 +40,11 @@ $(document).ready(function() {
         fileChanged = false;
     })
 
+    ipc.on('get-html-file', function(event, arg) {
+        var data = htmlContainer.text();
+        ipc.send('returned-file', data);
+    })
+
     ipc.on('get-file-status', function(event, arg) {
         ipc.send('file-status', fileChanged);
     })
@@ -48,6 +53,13 @@ $(document).ready(function() {
         kramdownContainer.val('');
         fileChanged = false;
     })
+
+    //Supress tab in textarea
+    kramdownContainer.keydown(function(e) {
+        if (e.which == 9) {
+            return false;
+        }
+    });
 });
 
 function resizeBarMouseDown(e, obj) {
@@ -126,10 +138,54 @@ function textEdited(obj) {
 }
 
 function updateHTML(htmlCode) {
+
+    htmlCode = "<!DOCTYPE html><html><head></head><body>\n" + htmlCode + "</body></html>";
+
     var cleanHtmlCode = codeFormatter(htmlCode);
 
     htmlContainer.text(cleanHtmlCode);
     renderedHtmlContainer.html(htmlCode);
 
     hljs.highlightBlock(htmlContainer[0]);
+}
+
+
+//styling
+function isTextSelected(callback) {
+    var text = kramdownContainer.getSelection().text;
+    if (text != null && text.length > 0) {
+        var newText = callback(text);
+        kramdownContainer.replaceSelectedText(newText);
+        textEdited(kramdownContainer);
+    }
+}
+
+function makeBold() {
+    isTextSelected(function(text) {
+        return "**" + text + "**";
+    });
+}
+
+function makeItalic() {
+    isTextSelected(function(text) {
+        return "_" + text + "_";
+    });
+}
+
+function makeH1() {
+    isTextSelected(function(text) {
+        return text + "\n" + "=".repeat(text.length);
+    });
+}
+
+function makeH2() {
+    isTextSelected(function(text) {
+        return text + "\n" + "-".repeat(text.length);
+    });
+}
+
+function makeH3() {
+    isTextSelected(function(text) {
+        return "### " + text;
+    });
 }

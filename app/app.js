@@ -34,6 +34,7 @@ app.on('ready', function() {
         saveFile: filesModule.saveFile,
         saveFileAs: filesModule.saveFileAs,
         closeFile: filesModule.closeFile,
+        exportHTML: filesModule.exportHTML,
         exit: function() {
             filesModule.closeFile(
                 function() {
